@@ -179,7 +179,7 @@ model1 = SVHNModel1()
 criterion1 = nn.CrossEntropyLoss()
 optimizer1 = torch.optim.Adam(model1.parameters(), 0.001)
 best_loss = 1000.0
-for epoch in range(3):
+for epoch in range(10):
     train_loss = train(train_loader, model1, criterion1, optimizer1)
     val_loss = validate(val_loader, model1, criterion1, optimizer1)
     # print(val_loader.dataset)
@@ -199,7 +199,7 @@ for epoch in range(3):
     for x in val_predict_label:
         val_label_pred.append(''.join(map(str, x[x != 10])))
     val_char_acc = np.mean(np.array(val_label_pred) == np.array(val_label))
-    print('Epoch: {0}, Train loss: {1} \t Val loss: {2} \t acc{3}'.format(epoch, train_loss, val_loss, val_char_acc))
+    print('Epoch: {0}, Train loss: {1} \t Val loss: {2} \t acc: {3}'.format(epoch, train_loss, val_loss, val_char_acc))
     if val_loss < best_loss:
         best_loss = val_loss
     torch.save(model1.state_dict(), './model.pt')
